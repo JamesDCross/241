@@ -1,0 +1,190 @@
+package week02;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.Random;
+
+/**
+ * The Coins class creates a coins object that can take in a boolean array
+ * string or an integer to produce different otuput. 
+ * @author James Cross 1350026
+ */
+
+public class Coins {
+
+    
+    /**
+     *declares  a boolean array of coins.
+     */
+    
+    private boolean[] coins;
+    
+
+    /**
+     * Main method was used for testing other methods.
+     * 
+     * 
+     * 
+     * @param args not used.
+     */
+
+    public static void main(String[] args) {
+
+       
+    }
+
+    /**
+     * 
+     * takes in a boolean array form the coins object being created
+     * and assigns it to the private boolean array coins.
+     * 
+     * 
+     * 
+     * @param coins takes in a boolean array from the object being created.
+     * 
+     */
+
+    public Coins(boolean[] coins) {
+
+        this.coins = coins;
+
+    }
+
+    /**
+     * Changes string c into an array of chars which is then iterated over
+     * and the H's and T's are changed to true and false values.
+     * 
+     * 
+     * 
+     * @param c takes in a string from the coins object being created.
+     * 
+     */
+
+    public Coins(String c) {
+         
+       
+        char[] stringC  = c.toCharArray();
+        this.coins = new boolean[stringC.length];
+        
+        for (int i = 0; i < stringC.length; i++) {
+             
+            if (stringC[i] == 'H') {
+                coins[i] = true;
+
+            } else if (stringC[i] == 'T') {
+                coins[i] = false;
+
+            }
+
+        }
+
+    }
+
+    /**
+     * creates an instance of the coins array and fills it with random values.
+     * 
+     * 
+     * 
+     * @param length takes in an int from the object being created.
+     * 
+     */
+
+    public Coins(int length) {
+       
+        this.coins  =new boolean[length];
+        
+        Random random = new Random();
+        for (int i = 0; i < (coins.length); i++) {
+            coins[i] = random.nextBoolean();
+        }
+
+            
+        
+    }
+
+    /**
+     * The countHeads method counts the occurrences
+     * of true in the boolean array. 
+     * 
+     * @return counter.
+     * 
+     */
+    
+    public int countHeads() {
+        int counter = 0;
+        for (int i = 0; i < coins.length; i++) {
+            if (coins[i]) {
+                counter++;
+
+            }
+
+        }
+
+        return counter;
+    }
+
+    /**
+     * toString takes the coins array, takes the false and true values
+     * and puts them into a
+     * string array as T's and H's then converts that array to a string.
+     * 
+     * @return string a string array converted to a string.
+     */
+
+    public String toString() {
+
+       
+        
+        String[] sa = new String[coins.length];
+
+        for (int i = 0; i < coins.length; i++) {
+            
+           
+            if (coins[i]) {
+                sa[i] = "H";
+
+            } else if (!coins[i]) {
+                sa[i] = "T";
+
+            }
+
+        }
+
+        String string = Arrays.stream(sa).collect(Collectors.joining());
+
+        
+        return (string);
+        
+
+    }
+
+    /**
+     * Counts the times the values change in coins array. 
+     * 
+     * 
+     * @return mainCounter.
+     */
+
+    public int countRuns() {
+        
+        int mainCounter = 0;
+        boolean a = coins[0];
+        for (int i = 1; i <coins.length-1 ; i++) {
+
+            if (coins[i] == coins[i+1]) {
+
+            } else if (coins[i] != coins[i+1] ) {
+             
+
+                mainCounter++;
+                a = coins[i+1];
+            }
+
+        }
+
+        mainCounter++;
+
+        return mainCounter;
+    }
+
+}
