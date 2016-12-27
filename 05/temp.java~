@@ -1,0 +1,18 @@
+
+
+
+public static boolean colValuesIncrease(int [][] t){
+		
+    for (int i = t.length-1; i >=0; i--) {//main array
+        //System.out.println(i);
+        for (int j = 0; j <= t[i].length -1; j++) {
+            	
+            System.out.println("row number = " + i);
+            System.out.println("row length = " + t[i].length);
+            System.out.println("count = " + j);
+            			
+            	
+        }
+    }
+    return true;
+}

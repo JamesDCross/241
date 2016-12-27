@@ -1,0 +1,137 @@
+
+package week07;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.*;
+
+
+
+public class DigramGenerator implements WordGenerator{
+
+    private  Random random;
+
+    private char [] firstLetters;
+    private String [] continuations;
+    private int riFirstLetters;
+    private int  indexContinuations;
+    private char[] continuationsString;
+
+    //dont need main method
+     public static void main(String [ ] args){
+    	
+    	Random t = new Random();
+    	DigramGenerator d = new DigramGenerator(t);
+        // System.out.println(d.nextWord(5));
+    	
+        }
+    
+    public double chooseIndex() {
+        riFirstLetters = random.nextInt(firstLetters.length);//a rand int from firstletters
+
+        return riFirstLetters;
+
+    }
+    public DigramGenerator(Random r) {
+        random = r;
+        
+        //1. make a char array of first letters
+        this.scanFirstLetter();
+        //2. make a string array of continuations
+        this.scanContinuations();
+        //3. choose a rnd index from first letters
+        // this.chooseIndex();
+      
+       
+        
+        
+    }
+    	
+    public String nextWord(int n) {
+        this.chooseIndex();
+        String cString = "";
+            
+        char  firstLetter = firstLetters[riFirstLetters];
+
+        String s = Character.toString(firstLetter);
+        //i = 1 because the firstLetter is taking up this spot
+        for(int i = 1; i < n; i++) {
+            cString  = continuations[firstLetter - 'a'];
+            continuationsString = cString.toCharArray();
+            indexContinuations = random.nextInt(continuationsString.length);
+            char secondLetter = continuationsString[indexContinuations];
+            //this ha been adjusted without me really understanding what a stringbuilder is 
+            s += new StringBuilder().append(secondLetter).toString();
+            //i was trying to make it secondletter = firstletter
+             firstLetter = secondLetter;
+           
+           
+       
+        }
+        //can you return a string and a char like this?
+        return s;
+         }
+
+   
+
+    public  char [] scanFirstLetter(){//put all the first letters in a string array
+		    
+        File file = new File("first-letters.txt");
+        // firstLetters = new char[1000];//1000 magic number?
+        String c = "";
+        try{
+		     
+            Scanner scan = new Scanner(file);
+            
+            c = scan.nextLine();
+            //this assigns the charArray to 1000 length automatically
+            firstLetters = c.toCharArray();
+		      	 
+            
+        }catch (FileNotFoundException e){
+            System.out.println(e);
+        }
+          
+        return firstLetters;
+    }
+
+    public  String [] scanContinuations(){//put all the first letters in a string array
+	    
+        File file = new File("continuations.txt");
+        continuations = new String[26];
+	   
+        try{
+	     
+            Scanner scan = new Scanner(file);
+            while(scan.hasNext()){
+		        
+                for (int i = 0; i < 26;i ++){
+                    continuations[i] = scan.nextLine();//watch this
+                }
+		        
+            }	 
+            //return continuations;
+        }catch (FileNotFoundException e){
+            System.out.println(e);
+        }
+        //System.out.println(Arrays.toString(continuations)); 
+        return continuations;
+    }
+
+
+   
+
+
+
+    
+
+}
+
+
+
+
+    
+
